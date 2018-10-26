@@ -6,14 +6,30 @@
 	<title>CSS기초</title>
 <!-- a태그는 다른 사이트 주소로 이동할 때 사용하는 코드  -->
 	<style type="text/css">
-div {
+#my {
 	color : red;
+}
+
+#me {
+	color: blue;
+}
+
+.a {
+background-color:green;	
+}
+
+.b{
+background-color:yellow;
 }
 </style>
 <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-	<div style="color :blue">헤헤헤 </div>
+	<div id='my' class="a">헤헤헤</div>
+	<div class="a">헤a헤헤</div>
+	<div class="a">헤헤a헤</div>
+	<div id="me" class="b">헤헤헤</div>
+	<div class="b">헤a헤a헤</div>
 	<h1>hi</h1>
 </body>
 </html>
