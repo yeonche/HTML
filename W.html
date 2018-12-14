@@ -1,5 +1,41 @@
 <html xmlus="http//www.w3.org./1999/xhtml">
 <head>
+	
+<script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBU4XKLiG5gCzpg2GZk1zedZZsfgqSZ3iQ",
+    authDomain: "ultemate-1a7aa.firebaseapp.com",
+    databaseURL: "https://ultemate-1a7aa.firebaseio.com",
+    projectId: "ultemate-1a7aa",
+    storageBucket: "ultemate-1a7aa.appspot.com",
+    messagingSenderId: "933534496811"
+  };
+  firebase.initializeApp(config);
+  var df = firebase.database();
+  
+  var chatlist = []
+  
+  
+
+  //불러오는 코드
+  //$("#chatlist").prepend("<div>"+$("#text_1").val()+"<div>")
+  //$('#text_1').val("");
+
+  df.ref("msgs/").on("value", function(snapshot){
+	  $("#chatlist").html("");
+	  snapshot.forEach(function(child) {
+		  $("#chatlist").append("<div>"+child.val().msg+"<div>")
+		  chatlist.push(child.val())
+	  
+
+  //child.val().msgs
+  })
+  })
+
+</script>
+
 	<title>JQuery Selector</title>
 	<meta http-equiv="content-type" content="text/html" charset="UTF-8"/>
 	<style>
@@ -10,35 +46,37 @@
 	
 	$(document).ready(function () {
 		
-		$("#btn_1").on("click", function(){
-			$("a").attr("href", "http://www.naver.com");
-			// 동적으로 값 넣어보기 가져와보기
-			$("#text_1").val("id 요소에 값넣기")
-			$(".text_2").val("class 요소에 값넣기")
-		})
-		$("#btn_2").on("click", function(){
-			$(".text_2").css("color" , "red")
-		})
-		$("#btn_3").on("click", function(){
-			$("#chatlist").prepend("<div>"+$("#text_1").val()+"<div>")
-		})
 		$("#btn_4").on("click", function(){
-			alert( $(".text_1").val() );
-		});
+        $('#chatlist').html("")
 
+        for(var a = 0; a<chatlist.length ; a++){
+        	var msgText = chatlist[a].msg;
+        	var search = $("#text_2").val();	
+        	if(msgText.indexOf(search)>=0){
+        	$("#chatlist").append("<div>"+msgText+"<div>")
+        	}
+        }
+
+		$("#btn_3").on("click", function(){
+			
+		
+			df.ref("msgs/").push().set({"msg": $("#text_1").val(), '이름':'이준' , '성별':'남자'});		
+			$('#text_1').val("");
+		})
 	})
+})
 	</script>
 </head>
 
 <body style="padding:10px">
 
-		<input type="button" id="btn_1"/>
-		<input type="button" id="btn_2"/>
+		
 		<input type="button" id="btn_3"/>
-		<input type="button" id="btn_4"/>
+	
 		<input type="text" id="text_1"/>	
-		<input type="text" id="me" class="text_2"/>
-		<input type="text" class="text_2"/>
+		
+		<input type="button" id="btn_4"/>
+		<input type="text" id="text_2"/>	
 		<div id='chatlist'></div>
 </body>
 </html>	

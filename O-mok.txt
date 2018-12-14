@@ -1,0 +1,47 @@
+var bg = box().append().size(602,402).border(0);
+
+var turn = 0 ;
+
+var time = 15;
+
+
+
+var timerBox = box().append().size(50,50).timer(Timer, 1000).text(time);
+
+
+
+function board(){
+    for(i=0; i<225; i++){
+    var boardBox = box().appendTo(bg).size(30).color('white').click(click);
+    }    
+} 
+
+function click(bx) {
+    turn++
+    
+    if(turn%2 == 0) {
+    bx.color('red');
+    time = 15;
+        
+    } 
+        else {
+        bx.color('blue')
+        time = 15;
+            
+        }    
+
+    
+}
+
+function Timer(bx) {
+timerBox.text(time--)    
+    if(time == 0) {
+    turn++
+    bg.image('http://t1.daumcdn.net/liveboard/maxim/11d9f24258a14fd4afa59ded5ce0e34c.JPG')
+    time = 15;
+        
+    }
+}
+
+
+board();
